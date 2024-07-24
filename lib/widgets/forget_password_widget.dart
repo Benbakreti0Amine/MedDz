@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_tech_mastering_api_with_flutter/screens/forget_password.dart';
 
 class ForgetPasswordWidget extends StatelessWidget {
   const ForgetPasswordWidget({
@@ -15,12 +16,12 @@ class ForgetPasswordWidget extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: GestureDetector(
         onTap: () => {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => const ForgetPasswordPage(),
-          //   ),
-          // )
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ForgetPasswordScreen(),
+            ),
+          )
         },
         child: const Text(
           'Forget password?',

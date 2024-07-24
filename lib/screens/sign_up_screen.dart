@@ -87,14 +87,7 @@ class SignUpScreen extends StatelessWidget {
                                   context.read<UserCubit>().signUpFormKey;
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<UserCubit>().signUp();
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        'Please fix the errors in the form n9drou nzidou logic li nhebou lfoug'),
-                                  ),
-                                );
-                              }
+                              } 
                             },widthpourcentage: 0.8, bgcolor: AppColors.primary, txtcolor: AppColors.white,
                           ),
                     const SizedBox(height: 18),

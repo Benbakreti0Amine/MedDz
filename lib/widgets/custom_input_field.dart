@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
 
 class CustomInputField extends StatefulWidget {
   final String labelText;
@@ -24,7 +25,6 @@ class CustomInputField extends StatefulWidget {
 
 class _CustomInputFieldState extends State<CustomInputField> {
   bool _obscureText = true;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,31 +34,55 @@ class _CustomInputFieldState extends State<CustomInputField> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.labelText,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Container(
+            margin: const EdgeInsets.only(bottom: 5),
+            child: Text(
+              widget.labelText,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
           ),
           TextFormField(
-            
             obscureText: widget.obscureText ? _obscureText : false,
             decoration: InputDecoration(
+              filled: true,
+              fillColor: AppColors.secondary.withOpacity(0.5),
+            
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,                 borderRadius:
+                    BorderRadius.circular(20),               ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,                 borderRadius:
+                    BorderRadius.circular(20),               ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Colors.blue, width: 0.2),                 borderRadius:
+                    BorderRadius.circular(20),               ),
+              errorBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Colors.red,
+                    width: 0.1),                 borderRadius:
+                    BorderRadius.circular(20),               ),
+              
+              errorStyle: const TextStyle(color: Colors.red), 
               hintText: widget.hintText,
               suffixIcon: widget.suffixIcon
-                  ? IconButton(
-                      icon: Icon(
-                        _obscureText
-                            ? Icons.remove_red_eye
-                            : Icons.visibility_off_outlined,
-                        color: Colors.black54,
+                  ? Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.remove_red_eye
+                              : Icons.visibility_off_outlined,
+                          color: Colors.black54,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
-                    )
+                  )
                   : null,
-              
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) {

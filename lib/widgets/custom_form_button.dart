@@ -32,7 +32,7 @@ class CustomFormButton extends StatelessWidget {
           innerText,
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
               fontSize: 20,
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w600,
               color: txtcolor),
         ),
       ),

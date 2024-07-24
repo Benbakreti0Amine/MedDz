@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
 
 import '../screens/sign_up_screen.dart';
 
@@ -37,7 +38,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
               'Sign-up',
               style: TextStyle(
                   fontSize: 15,
-                  color: Color(0xff748288),
+                  color: AppColors.primary,
                   fontWeight: FontWeight.bold),
             ),
           ),
