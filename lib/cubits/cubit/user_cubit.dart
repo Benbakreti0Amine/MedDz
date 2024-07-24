@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../cache/cachehelper.dart';
-import '../core/api/api_consumer.dart';
-import '../core/api/end_ponits.dart';
-import '../core/errors/exceptions.dart';
-import '../models/get_user_model.dart';
-import '../models/user_signin_model.dart';
-import '../models/user_signup_model.dart';
+import '../../cache/cachehelper.dart';
+import '../../core/api/api_consumer.dart';
+import '../../core/api/end_ponits.dart';
+import '../../core/errors/exceptions.dart';
+import '../../models/get_user_model.dart';
+import '../../models/user_signin_model.dart';
+import '../../models/user_signup_model.dart';
 import 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -24,6 +25,9 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController signInPassword = TextEditingController();
   //Sign Up Form key
   GlobalKey<FormState> signUpFormKey = GlobalKey();
+  //
+  GlobalKey<FormState> passwordResetFormKey = GlobalKey();
+
   //Profile Pic
   XFile? profilePic;
   //Sign up name
@@ -34,9 +38,11 @@ class UserCubit extends Cubit<UserState> {
 
   //Sign up email
   TextEditingController signUpEmail = TextEditingController();
-  TextEditingController signUpLocation = TextEditingController();
   //Sign up password
   TextEditingController signUpPassword = TextEditingController();
+  //FOrget Password
+  TextEditingController emailforgetpassword = TextEditingController();
+  TextEditingController changeforgetpassword = TextEditingController();
 
   UserSignin? user;
   GetUserModel? user1;
@@ -45,6 +51,8 @@ class UserCubit extends Cubit<UserState> {
     emit(ImageUploaded());
   }
 
+/////////////////////////////////////////
+/////////////////////////////////////////
   signUp() async {
     try {
       emit(SignUpLoading());
@@ -57,10 +65,13 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.lastname: signUpLastname.text,
           ApiKey.email: signUpEmail.text,
           ApiKey.password: signUpPassword.text,
-          ApiKey.pic: await uploadImage(profilePic!)
+          // ApiKey.pic: await uploadImage(profilePic!)
         },
       );
       final signUPModel = UserSignup.fromJson(response);
+      print("========================");
+      print(signUPModel.message);
+      print("========================");
       emit(SignUpSuccess(message: signUPModel.message));
     } on ServerException catch (e) {
       print("========================");
@@ -70,6 +81,8 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+/////////////////////////////////////////
+/////////////////////////////////////////
   getUserData() async {
     emit(GetprofileLoading());
     try {
@@ -85,6 +98,8 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+/////////////////////////////////////////
+/////////////////////////////////////////
   signIn() async {
     emit(SignInLoading());
     try {
@@ -92,28 +107,36 @@ class UserCubit extends Cubit<UserState> {
         ApiKey.email: signInEmail.text,
         ApiKey.password: signInPassword.text,
       });
-      // print(response);
-      // print("=====================================");
       user = UserSignin.fromJson(response);
-
       try {
         final decodedToken = JwtDecoder.decode(user!.token);
         CacheHelper().saveData(key: ApiKey.token, value: user!.token);
         CacheHelper().saveData(key: ApiKey.id, value: decodedToken["user_id"]);
-        // print(decodedToken["user_id"]);
         emit(SignInSuccess());
       } catch (e) {
         emit(SignInFailure(errMessage: 'Invalid JWT token format'));
       }
     } on ServerException catch (e) {
-      print("===============================");
-      print(e.errModel.errorMessage);
-      print("===============================");
-
       emit(SignInFailure(errMessage: e.errModel.errorMessage));
     }
   }
 
   void getUserProfile() {}
+  /////////////////////////////////////////
+  /////////////////////////////////////////
+  forgetPassword() async {
+    emit(passwordForgetLoading());
+    try {
+      final response = await api.post(EndPoint.forgetpass, data: {
+        ApiKey.email: emailforgetpassword.text,
+      });
+      print(response);
+      emit(PasswordForgetSuccess());
+    } on ServerException catch (e) {
+      emit(PasswordForgetFailed(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  /////////////////////////////////////////
+  /////////////////////////////////////////
 }
-//

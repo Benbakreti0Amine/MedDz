@@ -75,8 +75,6 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
-//
-  @override
   Future post(
     String path, {
     dynamic data,
@@ -89,12 +87,15 @@ class DioConsumer extends ApiConsumer {
         data: isFromData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
-      print(response.data);
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);
     }
   }
+
+  
+  
+  
 }
 // options: Options(
         //   headers: {

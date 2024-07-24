@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/sign_up_screen.dart';
+import 'package:happy_tech_mastering_api_with_flutter/screens/auth/sign_up_screen.dart';
 import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
 import 'package:happy_tech_mastering_api_with_flutter/widgets/custom_form_button.dart';
 import 'sign_in_screen.dart'; // Make sure to import SignInScreen

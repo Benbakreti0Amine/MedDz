@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/register_screen.dart';
+import 'package:happy_tech_mastering_api_with_flutter/screens/auth/ResetPassword.dart';
+import 'package:happy_tech_mastering_api_with_flutter/screens/auth/forget_password.dart';
+import 'package:happy_tech_mastering_api_with_flutter/screens/auth/register_screen.dart';
 import 'package:happy_tech_mastering_api_with_flutter/static/theme.dart';
 
 import 'cache/cachehelper.dart';
 import 'core/api/dio_consumer.dart';
-import 'cubit/user_cubit.dart';
-import 'screens/sign_in_screen.dart';
+import 'cubits/cubit/user_cubit.dart';
+import 'screens/auth/sign_in_screen.dart';
 
 
 void main() {
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: RegisterScreen(),
+      home: ResetPasswordScreen(),
     );
   }
 }
