@@ -4,19 +4,19 @@ class CustomInputField extends StatefulWidget {
   final String labelText;
   final String hintText;
   final bool suffixIcon;
-  final bool? isDense;
   final bool obscureText;
   final TextEditingController? controller;
+  final FormFieldValidator<String>? validator;
 
-  const CustomInputField(
-      {Key? key,
-      required this.labelText,
-      required this.hintText,
-      this.suffixIcon = false,
-      this.isDense,
-      this.obscureText = false,
-      this.controller})
-      : super(key: key);
+  const CustomInputField({
+    Key? key,
+    required this.labelText,
+    required this.hintText,
+    this.suffixIcon = false,
+    this.obscureText = false,
+    this.controller,
+    this.validator,
+  }) : super(key: key);
 
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
@@ -24,6 +24,7 @@ class CustomInputField extends StatefulWidget {
 
 class _CustomInputFieldState extends State<CustomInputField> {
   bool _obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,18 +32,16 @@ class _CustomInputFieldState extends State<CustomInputField> {
       width: size.width * 0.9,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              widget.labelText,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+          Text(
+            widget.labelText,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           TextFormField(
-            obscureText: (widget.obscureText && _obscureText),
+            
+            obscureText: widget.obscureText ? _obscureText : false,
             decoration: InputDecoration(
-              isDense: (widget.isDense != null) ? widget.isDense : false,
               hintText: widget.hintText,
               suffixIcon: widget.suffixIcon
                   ? IconButton(
@@ -59,14 +58,15 @@ class _CustomInputFieldState extends State<CustomInputField> {
                       },
                     )
                   : null,
-              suffixIconConstraints: (widget.isDense != null)
-                  ? const BoxConstraints(maxHeight: 33)
-                  : null,
+              
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (textValue) {
-              if (textValue == null || textValue.isEmpty) {
-                return 'required!';
+            validator: (value) {
+              if (widget.validator != null) {
+                return widget.validator!(value);
+              }
+              if (value == null || value.isEmpty) {
+                return 'This field is required';
               }
               return null;
             },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
 
 import '../cubit/user_cubit.dart';
 import '../cubit/user_state.dart';
@@ -7,9 +8,7 @@ import '../widgets/custom_form_button.dart';
 import '../widgets/custom_input_field.dart';
 import '../widgets/dont_have_an_account.dart';
 import '../widgets/forget_password_widget.dart';
-import '../widgets/page_header.dart';
 import '../widgets/page_heading.dart';
-
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class SignInScreen extends StatelessWidget {
               const SnackBar(
                 content: Text("success"),
               ),
-            );//
+            ); //
             // context.read<UserCubit>().getUserData();
             // Navigator.push(
             //   context,
@@ -43,57 +42,99 @@ class SignInScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: const Color(0xffEEF1F3),
             body: Column(
               children: [
-                const PageHeader(),
                 Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
-                      ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Form(
-                        key: context.read<UserCubit>().signInFormKey,
-                        child: Column(
-                          children: [
-                            const PageHeading(title: 'Sign-in'),
-                            //!Email
-                            CustomInputField(
-                              labelText: 'Email',
-                              hintText: 'Your email',
-                              controller: context.read<UserCubit>().signInEmail,
-                            ),
-                            const SizedBox(height: 16),
-                            //!Password
-                            CustomInputField(
-                              labelText: 'Password',
-                              hintText: 'Your password',
-                              obscureText: true,
-                              suffixIcon: true,
-                              controller:
-                                  context.read<UserCubit>().signInPassword,
-                            ),
-                            const SizedBox(height: 16),
-                            ForgetPasswordWidget(size: size),
-                            const SizedBox(height: 20),
-                            state is SignInLoading
-                                ? const CircularProgressIndicator()
-                                : CustomFormButton(
-                                    innerText: 'Sign In',
-                                    onPressed: () {
-                                      context.read<UserCubit>().signIn();
-                                    },
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: context.read<UserCubit>().signInFormKey,
+                      child: Column(
+                        children: [
+                          PageHeading(
+                            title: 'Sign-in',
+                            txtcolor: AppColors.primary,
+                            bgcolor: AppColors.white,
+                            isThereIcons: false,
+                          ),
+                          SizedBox(height: size.height * 0.0035),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(                          
+                              "Welcome",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.primary,
                                   ),
-                            const SizedBox(height: 18),
-                            //! Dont Have An Account ?
-                            DontHaveAnAccountWidget(size: size),
-                            const SizedBox(height: 20),
-                          ],
-                        ),
+                            ),
+                            Text(                          
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: size.height * 0.05),
+                          //!Email
+                          CustomInputField(
+                            labelText: 'Email',
+                            hintText: 'Your email',
+                            controller: context.read<UserCubit>().signInEmail,
+                          ),
+                          const SizedBox(height: 16),
+                          //!Password
+                          CustomInputField(
+                            labelText: 'Password',
+                            hintText: 'Your password',
+                            obscureText: true,
+                            suffixIcon: true,
+                            controller:
+                                context.read<UserCubit>().signInPassword,
+                          ),
+                          const SizedBox(height: 16),
+                          ForgetPasswordWidget(size: size),
+                          const SizedBox(height: 20),
+                          state is SignInLoading
+                              ? const CircularProgressIndicator()
+                              : CustomFormButton(
+                                  innerText: 'Sign In',
+                                  onPressed: () {
+                                    final formKey =
+                                        context.read<UserCubit>().signInFormKey;
+                                    if (formKey.currentState?.validate() ??
+                                        false) {
+                                      context.read<UserCubit>().signIn();
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Please fix the errors in the form'),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  widthpourcentage: 0.8,
+                                  bgcolor: AppColors.primary,
+                                  txtcolor: AppColors.white,
+                                ),
+                          const SizedBox(height: 18),
+                          //! Dont Have An Account ?
+                          DontHaveAnAccountWidget(size: size),
+                          const SizedBox(height: 20),
+                        ],
                       ),
                     ),
                   ),

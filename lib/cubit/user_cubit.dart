@@ -52,17 +52,12 @@ class UserCubit extends Cubit<UserState> {
         EndPoint.signUp,
         isFromData: true,
         data: {
-          // ApiKey.name: signUpName.text,
-          // ApiKey.firstname: signUpFirstname.text,
-          // ApiKey.lastname: signUpLastname.text,
-          // ApiKey.email: signUpEmail.text,
-          // ApiKey.password: signUpPassword.text,
-          // ApiKey.pic: await uploadImage(profilePic!)
-          "username": "dev",
-          "password": "123",
-          "email": "dev@example.com",
-          "first_name": "moh",
-          "last_name": "ben"
+          ApiKey.name: signUpName.text,
+          ApiKey.firstname: signUpFirstname.text,
+          ApiKey.lastname: signUpLastname.text,
+          ApiKey.email: signUpEmail.text,
+          ApiKey.password: signUpPassword.text,
+          ApiKey.pic: await uploadImage(profilePic!)
         },
       );
       final signUPModel = UserSignup.fromJson(response);
@@ -72,7 +67,7 @@ class UserCubit extends Cubit<UserState> {
       print(e.errModel.errorMessage);
       print("========================");
       emit(SignUpFailure(errMessage: e.errModel.errorMessage));
-    } 
+    }
   }
 
   getUserData() async {
@@ -94,10 +89,8 @@ class UserCubit extends Cubit<UserState> {
     emit(SignInLoading());
     try {
       final response = await api.post(EndPoint.signIn, data: {
-        // ApiKey.email: signInEmail.text,
-        // ApiKey.password: signInPassword.text,
-        "email": "m.benbakreti@esi-sba.dz",
-        "password": "1234",
+        ApiKey.email: signInEmail.text,
+        ApiKey.password: signInPassword.text,
       });
       // print(response);
       // print("=====================================");
@@ -107,7 +100,7 @@ class UserCubit extends Cubit<UserState> {
         final decodedToken = JwtDecoder.decode(user!.token);
         CacheHelper().saveData(key: ApiKey.token, value: user!.token);
         CacheHelper().saveData(key: ApiKey.id, value: decodedToken["user_id"]);
-        print(decodedToken["user_id"]);
+        // print(decodedToken["user_id"]);
         emit(SignInSuccess());
       } catch (e) {
         emit(SignInFailure(errMessage: 'Invalid JWT token format'));

@@ -19,6 +19,7 @@ dependencies:
   dio: ^5.4.0
   jwt_decoder: ^2.0.1
   shared_preferences: ^2.2.3
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -37,8 +38,7 @@ flutter:
 
   # Custom fonts declaration
   fonts:
-    - family: NotoSerif
+    - family: LeagueSpartan
       fonts:
-        - asset: assets/fonts/NotoSerif-Regular.ttf
-        - asset: assets/fonts/NotoSerif-Bold.ttf
-          weight: 700
+        - asset: assets/fonts/LeagueSpartan-VariableFont_wght.ttf
+        - asset: assets/fonts/LeagueSpartan-Bold.ttf
