@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
 
 class CustomFormButton extends StatelessWidget {
   final String innerText;

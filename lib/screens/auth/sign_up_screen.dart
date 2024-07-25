@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
 
-import '../cubit/user_cubit.dart';
-import '../cubit/user_state.dart';
-import '../widgets/already_have_an_account_widget.dart';
-import '../widgets/custom_form_button.dart';
-import '../widgets/custom_input_field.dart';
-import '../widgets/page_heading.dart';
+import '../../cubit/user_cubit.dart';
+import '../../cubit/user_state.dart';
+import '../../widgets/already_have_an_account_widget.dart';
+import '../../widgets/custom_form_button.dart';
+import '../../widgets/custom_input_field.dart';
+import '../../widgets/page_heading.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);

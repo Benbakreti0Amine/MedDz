@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 
-import '../../widgets/custom_form_button.dart';
-import '../../widgets/custom_input_field.dart';
-import '../../widgets/page_heading.dart';
-import '../cubit/user_cubit.dart';
-import '../cubit/user_state.dart';
-import '../static/colors.dart';
+import '../../../widgets/custom_form_button.dart';
+import '../../../widgets/custom_input_field.dart';
+import '../../../widgets/page_heading.dart';
+import '../../cubit/user_cubit.dart';
+import '../../cubit/user_state.dart';
+import '../../static/colors.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({Key? key}) : super(key: key);

@@ -42,7 +42,7 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController signUpPassword = TextEditingController();
   //FOrget Password
   TextEditingController emailforgetpassword = TextEditingController();
-  TextEditingController changeforgetpassword = TextEditingController();
+  TextEditingController resetpassword = TextEditingController();
 
   UserSignin? user;
   GetUserModel? user1;
@@ -139,4 +139,21 @@ class UserCubit extends Cubit<UserState> {
 
   /////////////////////////////////////////
   /////////////////////////////////////////
+
+  String token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxODYwMDM3LCJpYXQiOjE3MjE4NTI4MzcsImp0aSI6Ijk3NjViODhmMDRlNDQ5OGZhZjdmMjMyMjA2MWI0M2ZjIiwidXNlcl9pZCI6Mn0.uRsz7R-rC5i-_q9cS0uByF7pdI02bia4-AR20q2mHNI";
+  void ResetPassword() {
+    emit(passwordResetLoading());
+    try {
+      final response = api.post(EndPoint.resetpass, data: {
+        ApiKey.new_password: resetpassword.text,
+      }, queryParameters: {
+        'token': token,
+      });
+      print(response);
+      emit(PasswordResetSuccess());
+    } on ServerException catch (e) {
+      emit(PasswordResetFailed(errMessage: e.errModel.errorMessage));
+    }
+  }
 }

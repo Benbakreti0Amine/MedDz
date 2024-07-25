@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
 
 class PageHeading extends StatelessWidget {
@@ -35,7 +36,7 @@ class PageHeading extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: size.height * 0.005),  
+            padding: EdgeInsets.only(top: size.height * 0.005),
             child: Center(
               child: Text(
                 title,
@@ -55,9 +56,11 @@ class PageHeading extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Iconsbutton(
-                      txtcolor: txtcolor,
-                      icon: Icons.notifications_active_outlined),
-                  Iconsbutton(txtcolor: txtcolor, icon: Icons.settings),
+                    path: 'assets/images/icon3.svg',
+                  ),
+                  Iconsbutton(
+                    path: 'assets/images/icon2.svg',
+                  ),
                 ],
               ),
             ),
@@ -70,28 +73,27 @@ class PageHeading extends StatelessWidget {
 class Iconsbutton extends StatelessWidget {
   const Iconsbutton({
     super.key,
-    required this.txtcolor,
-    required this.icon,
+    required this.path,
     this.onpressed,
   });
-
-  final Color txtcolor;
-  final IconData icon;
+  final String path;
   final void Function()? onpressed;
   @override
   Widget build(BuildContext context) {
+        final Size size = MediaQuery.of(context).size;
+
     return Container(
+      padding: EdgeInsets.all(8),
       margin: const EdgeInsets.only(left: 8),
       decoration: BoxDecoration(
         color: AppColors.secondary,
         shape: BoxShape.circle,
       ),
-      child: IconButton(
-        onPressed: onpressed,
-        icon: Icon(
-          icon,
-          color: txtcolor,
-        ),
+      child: GestureDetector(
+        onTap: () {
+          onpressed!();
+        },
+        child: SvgPicture.asset(path,width:size.width * 0.03,height:size.height*0.03 ,),
       ),
     );
   }
