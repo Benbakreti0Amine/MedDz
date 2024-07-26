@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:happy_tech_mastering_api_with_flutter/screens/auth/forget_password.dart';
 import 'package:happy_tech_mastering_api_with_flutter/screens/auth/reset_password.dart';
 import 'package:happy_tech_mastering_api_with_flutter/screens/auth/register_screen.dart';
+import 'package:happy_tech_mastering_api_with_flutter/screens/home/home_screen.dart';
 import 'package:happy_tech_mastering_api_with_flutter/static/theme.dart';
 
 import 'cache/cachehelper.dart';

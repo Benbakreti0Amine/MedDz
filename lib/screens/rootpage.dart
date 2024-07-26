@@ -45,32 +45,35 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 22),
+      padding: EdgeInsets.symmetric( vertical: 22),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: IndexedStack(
           index: _BottomIndex,
           children: _widgetmethod(),
         ),
-        bottomNavigationBar: ClipRRect(
-            borderRadius: BorderRadius.all(
-              Radius.circular(30),
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.symmetric(horizontal: 35),
+          child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(30),
+              ),
+              child: AnimatedBottomNavigationBar(
+                  backgroundColor: AppColors.primary,
+                  splashColor: AppColors.primary,
+                  activeColor: Colors.black.withOpacity(.5),
+                  inactiveColor: AppColors.white,
+                  icons: iconList,
+                  activeIndex: _BottomIndex,
+                  gapLocation: GapLocation.center,
+                  notchSmoothness: NotchSmoothness.verySmoothEdge,
+                  onTap: (index) {
+                    setState(() {
+                      _BottomIndex = index;
+                    });
+                  }),
             ),
-            child: AnimatedBottomNavigationBar(
-                backgroundColor: AppColors.primary,
-                splashColor: AppColors.primary,
-                activeColor: Colors.black.withOpacity(.5),
-                inactiveColor: AppColors.white,
-                icons: iconList,
-                activeIndex: _BottomIndex,
-                gapLocation: GapLocation.center,
-                notchSmoothness: NotchSmoothness.verySmoothEdge,
-                onTap: (index) {
-                  setState(() {
-                    _BottomIndex = index;
-                  });
-                }),
-          ),
+        ),
         ),
 
     );

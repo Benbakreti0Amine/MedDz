@@ -27,6 +27,7 @@ class UserCubit extends Cubit<UserState> {
   GlobalKey<FormState> signUpFormKey = GlobalKey();
   //
   GlobalKey<FormState> passwordResetFormKey = GlobalKey();
+  GlobalKey<FormState> passwordForgetFormKey = GlobalKey();
 
   //Profile Pic
   XFile? profilePic;
@@ -43,6 +44,7 @@ class UserCubit extends Cubit<UserState> {
   //FOrget Password
   TextEditingController emailforgetpassword = TextEditingController();
   TextEditingController resetpassword = TextEditingController();
+  TextEditingController otp = TextEditingController();
 
   UserSignin? user;
   GetUserModel? user1;
@@ -124,36 +126,38 @@ class UserCubit extends Cubit<UserState> {
   void getUserProfile() {}
   /////////////////////////////////////////
   /////////////////////////////////////////
-  forgetPassword() async {
-    emit(passwordForgetLoading());
-    try {
-      final response = await api.post(EndPoint.forgetpass, data: {
-        ApiKey.email: emailforgetpassword.text,
-      });
-      print(response);
+  void forgetPassword() async {
+  emit(passwordForgetLoading());
+  try {
+    final response = await api.post(EndPoint.forgetpass, data: {
+      ApiKey.email: emailforgetpassword.text,
+    });
       emit(PasswordForgetSuccess());
-    } on ServerException catch (e) {
-      emit(PasswordForgetFailed(errMessage: e.errModel.errorMessage));
-    }
+  } on ServerException catch (e) {
+    emit(PasswordForgetFailed(errMessage: e.errModel.errorMessage));
+  } catch (e) {
+    emit(PasswordForgetFailed(errMessage: 'An unknown error occurred.'));
   }
+}
+
 
   /////////////////////////////////////////
   /////////////////////////////////////////
 
-  String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxODYwMDM3LCJpYXQiOjE3MjE4NTI4MzcsImp0aSI6Ijk3NjViODhmMDRlNDQ5OGZhZjdmMjMyMjA2MWI0M2ZjIiwidXNlcl9pZCI6Mn0.uRsz7R-rC5i-_q9cS0uByF7pdI02bia4-AR20q2mHNI";
-  void ResetPassword() {
+  void ResetPassword() async {
     emit(passwordResetLoading());
     try {
-      final response = api.post(EndPoint.resetpass, data: {
+      final response = await api.post(EndPoint.resetpass, data: {
         ApiKey.new_password: resetpassword.text,
-      }, queryParameters: {
-        'token': token,
+        ApiKey.otp: otp.text,
       });
-      print(response);
-      emit(PasswordResetSuccess());
+      
+        emit(PasswordResetSuccess());
+      
     } on ServerException catch (e) {
       emit(PasswordResetFailed(errMessage: e.errModel.errorMessage));
+    } catch (e) {
+      emit(PasswordResetFailed(errMessage: 'An unknown error occurred.'));
     }
   }
 }

@@ -13,6 +13,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: BlocConsumer<UserCubit, UserState>(
@@ -47,14 +48,21 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * 0.05),
 
-                    //!Password
+                    
+                    CustomInputField(
+                      labelText: 'OTP',
+                      hintText: 'Enter OTP sent to your email',
+                      controller: context.read<UserCubit>().otp,
+                    ),
+
+                    const SizedBox(height: 15),
+
                     CustomInputField(
                       labelText: 'Password',
                       hintText: 'Enter your new password',
                       controller: context.read<UserCubit>().resetpassword,
                     ),
 
-                    const SizedBox(height: 15),
                     // CustomInputField(
                     //   labelText: 'Confirm Password',
                     //   hintText: 'Confirm your new password',

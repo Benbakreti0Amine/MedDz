@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-
+import 'package:happy_tech_mastering_api_with_flutter/screens/auth/register_screen.dart';
+import 'package:happy_tech_mastering_api_with_flutter/screens/auth/reset_password.dart';
 
 import '../../../widgets/custom_form_button.dart';
 import '../../../widgets/custom_input_field.dart';
@@ -22,10 +22,16 @@ class ForgetPasswordScreen extends StatelessWidget {
           if (state is PasswordForgetSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text("reset link sent to your email"),
+                content: Text("Reset link sent to your email"),
               ),
             );
+             context.read<UserCubit>().emailforgetpassword.clear();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ResetPasswordScreen()));
           } else if (state is PasswordForgetFailed) {
+            print(state.errMessage);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errMessage),
@@ -37,7 +43,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           return Scaffold(
             body: SingleChildScrollView(
               child: Form(
-                key: context.read<UserCubit>().passwordResetFormKey,
+                key: context.read<UserCubit>().passwordForgetFormKey,
                 child: Column(
                   children: [
                     const PageHeading(
@@ -48,20 +54,22 @@ class ForgetPasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * 0.05),
 
-                    //!Password
+                    //! Recovery Email
                     CustomInputField(
                       labelText: 'Recovery Email',
                       hintText: 'Enter your email',
                       controller: context.read<UserCubit>().emailforgetpassword,
                     ),
-                    
+
                     const SizedBox(height: 15),
                     state is passwordForgetLoading
-                        ? const CircularProgressIndicator():
-                         CustomFormButton(
+                        ? const CircularProgressIndicator()
+                        : CustomFormButton(
                             innerText: 'Done',
                             onPressed: () {
-                              final formKey = context.read<UserCubit>().passwordResetFormKey;
+                              final formKey = context
+                                  .read<UserCubit>()
+                                  .passwordForgetFormKey;
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<UserCubit>().forgetPassword();
                               }

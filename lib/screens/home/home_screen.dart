@@ -21,67 +21,221 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 25.0,
-                    backgroundColor: AppColors.primary,
-                  ),
-                  SizedBox(width: size.width * 0.03),
-                  const Column(
-                    children: [
-                      Text(
-                        "data",
-                        style: TextStyle(color: AppColors.primary),
-                      ),
-                      Text("data"),
-                    ],
-                  ),
-                ],
-              ),
-              const Row(
-                children: [
-                  Iconsbutton(
-                    path: 'assets/images/notifi.svg',
-                  ),
-                  Iconsbutton(
-                    path: 'assets/images/settings.svg',
-                  ),
-                ],
-              )
-            ],
+          Container(
+            width: size.width * 0.85,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 25.0,
+                      backgroundColor: AppColors.primary,
+                    ),
+                    SizedBox(width: size.width * 0.03),
+                    const Column(
+                      children: [
+                        Text(
+                          "data",
+                          style: TextStyle(color: AppColors.primary),
+                        ),
+                        Text("data"),
+                      ],
+                    ),
+                  ],
+                ),
+                const Row(
+                  children: [
+                    Iconsbutton(
+                      path: 'assets/images/notifi.svg',
+                    ),
+                    Iconsbutton(
+                      path: 'assets/images/settings.svg',
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
           SizedBox(
-            height: size.height * 0.025,
+            height: size.height * 0.018,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  buttonText(
-                path: 'assets/images/doc.svg',
-                txt: 'Doctors',
-              ),
-              buttonText(
-                path: 'assets/images/fav.svg',
-                txt: 'Favorite',
-              ),
-                ],
-              ),
-              searchField(size: size),           
-            ],
+          Container(
+            width: size.width * 0.85,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    buttonText(
+                      path: 'assets/images/doc.svg',
+                      txt: 'Doctors',
+                    ),
+                    buttonText(
+                      path: 'assets/images/fav.svg',
+                      txt: 'Favorite',
+                    ),
+                  ],
+                ),
+                searchField(size: size),
+              ],
+            ),
           ),
-          Container(width: size.width, height: size.height * 0.3, color: AppColors.primary,),
-          const Text("data"),
-          const Text("data"),
-          const Text("data"),
+          SizedBox(
+            height: size.height * 0.02,
+          ),
+          Container(
+            width: size.width,
+            height: size.height * 0.3,
+            color: AppColors.secondary,
+          ),
+          SizedBox(
+            height: size.height * 0.015,
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            decoration: BoxDecoration(
+                color: AppColors.secondary,
+                borderRadius: BorderRadius.circular(22)),
+            width: size.width * 0.8,
+            height: size.height * 0.12,
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 25.0,
+                  backgroundColor: AppColors.primary,
+                ),
+                SizedBox(
+                  width: size.width * 0.032,
+                ),
+                Column(
+                  children: [
+                    nameSpeciality(size: size),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [             
+                        Row(children: [
+                          Twoicons(
+                            size: size,
+                            icon: Icons.star_outline,
+                            txt: '4.5',
+                          ),
+                          SizedBox(
+                            width: size.width * 0.015,
+                          ),
+                          Twoicons(
+                            size: size,
+                            icon: Icons.rate_review_outlined,
+                            txt: '50',
+                          ),
+                        ]),
+                        
+                        Row(
+                          children: [
+                            Text("d"),
+                            Text("data"),
+                          ],
+
+                        )
+                      ],
+                    
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     ));
+  }
+}
+
+class Twoicons extends StatelessWidget {
+  const Twoicons({
+    super.key,
+    required this.size,
+    required this.icon,
+    required this.txt,
+  });
+
+  final Size size;
+  final IconData icon;
+  final String txt;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 8, right: 8,top: 1),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: AppColors.primary,
+            size: 15,
+          ),
+          SizedBox(width: size.width * 0.015),
+          Text(
+            txt,
+            style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 13,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class nameSpeciality extends StatelessWidget {
+  const nameSpeciality({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 5),
+          width: size.width * 0.58,
+          height: size.height * 0.06,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: AppColors.white,
+          ),
+        ),
+        Positioned(
+          left: 10,
+          top: 8.5,
+          child: Text(
+            "data",
+            style: TextStyle(color: AppColors.primary),
+          ),
+        ),
+        Positioned(
+          left: 10,
+          bottom: 3,
+          child: Text(
+            "data",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -107,24 +261,23 @@ class searchField extends StatelessWidget {
               shape: BoxShape.circle,
               color: AppColors.white,
             ),
-            margin: EdgeInsets.only(left: 7,right: 7),
+            margin: EdgeInsets.only(left: 7, right: 7),
             padding: EdgeInsets.all(6),
             child: SvgPicture.asset(
-              'assets/images/settingsblack.svg',                    
+              'assets/images/settingsblack.svg',
             ),
           ),
           suffixIcon: Container(
             padding: EdgeInsets.all(8),
             child: SvgPicture.asset(
-              'assets/images/search.svg', 
-              width: 0.5, 
+              'assets/images/search.svg',
+              width: 0.5,
               height: 0.5,
             ),
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(40)
-          ),
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(40)),
         ),
       ),
     );

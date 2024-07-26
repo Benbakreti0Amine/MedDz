@@ -24,7 +24,9 @@ class SignInScreen extends StatelessWidget {
               const SnackBar(
                 content: Text("success"),
               ),
-            ); //
+            ); 
+            context.read<UserCubit>().signInEmail.clear();
+            context.read<UserCubit>().signInPassword.clear();
             // context.read<UserCubit>().getUserData();
             // Navigator.push(
             //   context,
