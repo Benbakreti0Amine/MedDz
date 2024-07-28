@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/auth/forget_password.dart';
+import 'package:Meddz/screens/auth/forget_password.dart';
 
 class ForgetPasswordWidget extends StatelessWidget {
   const ForgetPasswordWidget({

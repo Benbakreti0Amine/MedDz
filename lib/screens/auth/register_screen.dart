@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/auth/sign_up_screen.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
-import 'package:happy_tech_mastering_api_with_flutter/widgets/custom_form_button.dart';
+import 'package:Meddz/screens/auth/sign_up_screen.dart';
+import 'package:Meddz/static/colors.dart';
+import 'package:Meddz/widgets/custom_form_button.dart';
 import 'sign_in_screen.dart'; // Make sure to import SignInScreen
 
 class RegisterScreen extends StatelessWidget {
@@ -79,7 +79,9 @@ class RegisterScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => SignInScreen()),
                   );
                 },
-                widthpourcentage: 0.4, bgcolor: AppColors.primary, txtcolor: AppColors.white,
+                widthpourcentage: 0.4,
+                bgcolor: AppColors.primary,
+                txtcolor: AppColors.white,
               ),
               SizedBox(
                 height: size.height * 0.02,
@@ -92,7 +94,9 @@ class RegisterScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => SignUpScreen()),
                   );
                 },
-                widthpourcentage: 0.4, bgcolor: AppColors.secondary, txtcolor: AppColors.primary,
+                widthpourcentage: 0.4,
+                bgcolor: AppColors.secondary,
+                txtcolor: AppColors.primary,
               ),
             ],
           ),

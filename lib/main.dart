@@ -1,17 +1,16 @@
+import 'package:Meddz/screens/auth/register_screen.dart';
+import 'package:Meddz/screens/home/home_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/auth/forget_password.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/auth/reset_password.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/auth/register_screen.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/home/home_screen.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/theme.dart';
+
 
 import 'cache/cachehelper.dart';
 import 'core/api/dio_consumer.dart';
 import 'cubit/user_cubit.dart';
 import 'screens/auth/sign_in_screen.dart';
 import 'screens/rootpage.dart';
+import 'static/theme.dart';
 
 
 void main() {
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: RootPage(),
+      home: RegisterScreen(),
     );
   }
 }

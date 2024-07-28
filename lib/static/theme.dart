@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
+import 'package:Meddz/static/colors.dart';
 
 class AppTheme {
   // Define the theme for the application

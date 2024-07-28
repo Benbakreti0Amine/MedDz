@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
+import 'package:Meddz/static/colors.dart';
 
 class CustomInputField extends StatefulWidget {
   final String labelText;
@@ -46,29 +46,28 @@ class _CustomInputFieldState extends State<CustomInputField> {
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.secondary.withOpacity(0.5),
-            
               border: OutlineInputBorder(
-                borderSide: BorderSide.none,                 borderRadius:
-                    BorderRadius.circular(20),               ),
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(20),
+              ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,                 borderRadius:
-                    BorderRadius.circular(20),               ),
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(20),
+              ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                    color: Colors.blue, width: 0.2),                 borderRadius:
-                    BorderRadius.circular(20),               ),
+                borderSide: const BorderSide(color: Colors.blue, width: 0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
               errorBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                    color: Colors.red,
-                    width: 0.1),                 borderRadius:
-                    BorderRadius.circular(20),               ),
-              
-              errorStyle: const TextStyle(color: Colors.red), 
+                borderSide: const BorderSide(color: Colors.red, width: 0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              errorStyle: const TextStyle(color: Colors.red),
               hintText: widget.hintText,
               suffixIcon: widget.suffixIcon
                   ? Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: IconButton(
+                      padding: EdgeInsets.only(right: 8),
+                      child: IconButton(
                         icon: Icon(
                           _obscureText
                               ? Icons.remove_red_eye
@@ -81,7 +80,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
                           });
                         },
                       ),
-                  )
+                    )
                   : null,
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,

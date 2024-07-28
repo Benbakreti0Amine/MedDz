@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="happy_tech_mastering_api_with_flutter"
+        android:label="Meddz"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

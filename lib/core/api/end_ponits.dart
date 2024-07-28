@@ -1,10 +1,11 @@
 class EndPoint {
   static String baseUrl = "http://127.0.0.1:8000/";
+  // static String baseUrl = "http://192.168.1.11:8000/";
   static String signIn = "users/login/";
   static String signUp = "users/listcreateuser/";
   static String forgetpass = "users/password-reset-request/";
   static String resetpass = "users/password-reset-confirm/";
-  
+
   static String getUser(dynamic id) {
     return "user/get-user/$id";
   }

@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
+import 'package:Meddz/static/colors.dart';
 
 import '../../cubit/user_cubit.dart';
 import '../../cubit/user_state.dart';
@@ -35,7 +34,12 @@ class SignUpScreen extends StatelessWidget {
                 key: context.read<UserCubit>().signUpFormKey,
                 child: Column(
                   children: [
-                    const PageHeading(title: 'Sign-up', bgcolor: AppColors.white, txtcolor: AppColors.primary, isThereIcons: false,),
+                    const PageHeading(
+                      title: 'Sign-up',
+                      bgcolor: AppColors.white,
+                      txtcolor: AppColors.primary,
+                      isThereIcons: false,
+                    ),
                     //! Image
                     // const PickImageWidget(),
                     const SizedBox(height: 16),
@@ -87,8 +91,11 @@ class SignUpScreen extends StatelessWidget {
                                   context.read<UserCubit>().signUpFormKey;
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<UserCubit>().signUp();
-                              } 
-                            },widthpourcentage: 0.8, bgcolor: AppColors.primary, txtcolor: AppColors.white,
+                              }
+                            },
+                            widthpourcentage: 0.8,
+                            bgcolor: AppColors.primary,
+                            txtcolor: AppColors.white,
                           ),
                     const SizedBox(height: 18),
                     //! Already have an account widget

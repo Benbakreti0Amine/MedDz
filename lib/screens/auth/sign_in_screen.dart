@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
+import 'package:Meddz/static/colors.dart';
 
 import '../../cubit/user_cubit.dart';
 import '../../cubit/user_state.dart';
@@ -24,7 +24,7 @@ class SignInScreen extends StatelessWidget {
               const SnackBar(
                 content: Text("success"),
               ),
-            ); 
+            );
             context.read<UserCubit>().signInEmail.clear();
             context.read<UserCubit>().signInPassword.clear();
             // context.read<UserCubit>().getUserData();
@@ -99,8 +99,7 @@ class SignInScreen extends StatelessWidget {
                       hintText: 'Your password',
                       obscureText: true,
                       suffixIcon: true,
-                      controller:
-                          context.read<UserCubit>().signInPassword,
+                      controller: context.read<UserCubit>().signInPassword,
                     ),
                     const SizedBox(height: 16),
                     ForgetPasswordWidget(size: size),
@@ -112,8 +111,7 @@ class SignInScreen extends StatelessWidget {
                             onPressed: () {
                               final formKey =
                                   context.read<UserCubit>().signInFormKey;
-                              if (formKey.currentState?.validate() ??
-                                  false) {
+                              if (formKey.currentState?.validate() ?? false) {
                                 context.read<UserCubit>().signIn();
                               }
                             },
@@ -134,10 +132,11 @@ class SignInScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Iconsbutton(
-                            path: 'assets/images/icon1.svg',),
+                          path: 'assets/images/icon1.svg',
+                        ),
                         Iconsbutton(
-                            path: 'assets/images/icon1.svg',),
-                       
+                          path: 'assets/images/icon1.svg',
+                        ),
                       ],
                     ),
                     const SizedBox(height: 28),

@@ -1,4 +1,4 @@
-package com.example.happy_tech_mastering_api_with_flutter
+package com.example.Meddz
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:happy_tech_mastering_api_with_flutter/static/colors.dart';
+import 'package:Meddz/static/colors.dart';
 
 class PageHeading extends StatelessWidget {
   final String title;
@@ -80,7 +80,7 @@ class Iconsbutton extends StatelessWidget {
   final void Function()? onpressed;
   @override
   Widget build(BuildContext context) {
-        final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
 
     return Container(
       padding: EdgeInsets.all(8),
@@ -93,7 +93,11 @@ class Iconsbutton extends StatelessWidget {
         onTap: () {
           onpressed!();
         },
-        child: SvgPicture.asset(path,width:size.width * 0.03,height:size.height*0.03 ,),
+        child: SvgPicture.asset(
+          path,
+          width: size.width * 0.03,
+          height: size.height * 0.03,
+        ),
       ),
     );
   }

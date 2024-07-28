@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/auth/register_screen.dart';
-import 'package:happy_tech_mastering_api_with_flutter/screens/auth/reset_password.dart';
+
 
 import '../../../widgets/custom_form_button.dart';
 import '../../../widgets/custom_input_field.dart';
@@ -9,6 +8,7 @@ import '../../../widgets/page_heading.dart';
 import '../../cubit/user_cubit.dart';
 import '../../cubit/user_state.dart';
 import '../../static/colors.dart';
+import 'reset_password.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({Key? key}) : super(key: key);

@@ -44,8 +44,7 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      padding: EdgeInsets.symmetric( vertical: 22),
+    return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         body: IndexedStack(
@@ -53,7 +52,7 @@ class _RootPageState extends State<RootPage> {
           children: _widgetmethod(),
         ),
         bottomNavigationBar: Container(
-          padding: EdgeInsets.symmetric(horizontal: 35),
+          padding: EdgeInsets.symmetric(horizontal: 35,vertical: 15),
           child: ClipRRect(
               borderRadius: BorderRadius.all(
                 Radius.circular(30),
@@ -75,7 +74,6 @@ class _RootPageState extends State<RootPage> {
             ),
         ),
         ),
-
     );
   }
 }
