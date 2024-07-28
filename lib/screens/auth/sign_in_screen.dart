@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Meddz/static/colors.dart';
 
-import '../../cubit/user_cubit.dart';
-import '../../cubit/user_state.dart';
+import '../../BLOC/cubit/user_cubit.dart';
+import '../../BLOC/cubit/user_state.dart';
 import '../../widgets/custom_form_button.dart';
 import '../../widgets/custom_input_field.dart';
 import '../../widgets/dont_have_an_account.dart';

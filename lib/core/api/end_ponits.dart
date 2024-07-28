@@ -16,15 +16,25 @@ class ApiKey {
   static String errorMessage = "errorMessage";
   static String email = "email";
   static String password = "password";
-  static String new_password = "new_password";
+  static String newPassword = "new_password";
   static String otp = "otp";
   static String token = "token";
   static String id = "id";
   static String message = "message";
-  static String name = "username";
-  static String firstname = "first_name";
-  static String lastname = "last_name";
+  static String name = "name";
+  static String firstname = "firstname";
+  static String lastname = "lastname";
   static String location = "location";
   static String pic = "profilePic";
+  static String degree = "degree";
+  static String specialization = "specialization";
+  static String beginOfWork = "begin_of_work";
+  static String experienceYears = "experience_years";
+  static String rating = "rating";
+  static String reviewsCount = "reviews_count";
+  static String availableDays = "available_days";
+  static String availableHours = "available_hours";
+  static String bio = "bio";
+  static String highlights = "highlights";
+  static String profilePicture = "profile_picture";
 }
-//

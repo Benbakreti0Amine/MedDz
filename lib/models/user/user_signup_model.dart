@@ -1,5 +1,5 @@
 
-import '../core/api/end_ponits.dart';
+import '../../core/api/end_ponits.dart';
 
 class UserSignup {
   final String message;

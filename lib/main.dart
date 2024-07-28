@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'cache/cachehelper.dart';
 import 'core/api/dio_consumer.dart';
-import 'cubit/user_cubit.dart';
+import 'BLOC/cubit/user_cubit.dart';
 import 'screens/auth/sign_in_screen.dart';
 import 'screens/rootpage.dart';
 import 'static/theme.dart';

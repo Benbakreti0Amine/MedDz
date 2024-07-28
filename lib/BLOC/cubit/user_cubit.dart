@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../../cache/cachehelper.dart';
-import '../../core/api/api_consumer.dart';
-import '../../core/api/end_ponits.dart';
-import '../../core/errors/exceptions.dart';
-import '../../models/get_user_model.dart';
-import '../../models/user_signin_model.dart';
-import '../../models/user_signup_model.dart';
+import '../../../cache/cachehelper.dart';
+import '../../../core/api/api_consumer.dart';
+import '../../../core/api/end_ponits.dart';
+import '../../../core/errors/exceptions.dart';
+import '../../models/user/get_user_model.dart';
+import '../../models/user/user_signin_model.dart';
+import '../../models/user/user_signup_model.dart';
 import 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -148,7 +148,7 @@ class UserCubit extends Cubit<UserState> {
     emit(passwordResetLoading());
     try {
       final response = await api.post(EndPoint.resetpass, data: {
-        ApiKey.new_password: resetpassword.text,
+        ApiKey.newPassword: resetpassword.text,
         ApiKey.otp: otp.text,
       });
       

@@ -1,4 +1,4 @@
-import '../../models/get_user_model.dart';
+import '../../models/user/get_user_model.dart';
 
 class UserState {}
 
