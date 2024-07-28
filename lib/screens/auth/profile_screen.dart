@@ -54,10 +54,7 @@ class ProfileScreen extends StatelessWidget {
                         const SizedBox(height: 16),
 
                         //! Address
-                        ListTile(
-                          title: Text(state.user.location["type"]),
-                          leading: Icon(Icons.location_city),
-                        ),
+                        
                         const SizedBox(height: 16),
                       ],
                     )

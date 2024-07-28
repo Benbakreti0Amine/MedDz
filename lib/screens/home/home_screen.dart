@@ -1,5 +1,10 @@
+import 'package:Meddz/BLOC/bloc/doctor_bloc.dart';
+import 'package:Meddz/BLOC/bloc/doctor_event.dart';
+import 'package:Meddz/BLOC/bloc/doctor_state.dart';
+import 'package:Meddz/models/doctor/get_doctor_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:Meddz/static/colors.dart';
 
@@ -13,7 +18,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
+  void initState() {
+    super.initState();
+    // Dispatch the LoadDoctors event
+    context.read<DoctorBloc>().add(LoadDoctors());
+  }
+  
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     bool Togglefavorite(bool isFavorated) {
@@ -62,7 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-         
           Container(
             width: size.width * 0.85,
             child: Row(
@@ -96,18 +107,32 @@ class _HomeScreenState extends State<HomeScreen> {
             height: size.height * 0.008,
           ),
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6.0, horizontal: 35),
-                  child: SizedBox(
-                    width: size.width * 0.8,
-                    child: DoctorCard(size: size),
-                  ),
-                );
+            child: BlocBuilder<DoctorBloc, DoctorState>(
+              builder: (context, state) {
+                if (state is DoctorLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is DoctorLoaded) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      final doctor = state.doctors[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6.0, horizontal: 35),
+                        child: SizedBox(
+                          width: size.width * 0.8,
+                          child: DoctorCard(size: size, doctor: doctor),
+                        ),
+                      );
+                    },
+                    itemCount: state.doctors.length,
+                  );
+                } else if (state is DoctorError) {
+                  return Center(
+                      child: Text('Failed to load doctors: ${state.message}'));
+                } else {
+                  return Container(); // Initial or other states
+                }
               },
-              itemCount: 4,
             ),
           ),
         ],
@@ -116,20 +141,91 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class DoctorCard extends StatelessWidget {
-  const DoctorCard({
-    super.key,
-    required this.size,
-  });
+// class DoctorCard extends StatelessWidget {
+//   const DoctorCard({
+//     super.key,
+//     required this.size,
+//   });
 
+//   final Size size;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+//       decoration: BoxDecoration(
+//           color: AppColors.secondary, borderRadius: BorderRadius.circular(22)),
+//       width: size.width * 0.85,
+//       height: size.height * 0.12,
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           Container(
+//             decoration: BoxDecoration(
+//               shape: BoxShape.circle,
+//               color: AppColors.primary,
+//             ),
+//             width: size.width * 0.15,
+//             height: size.height * 0.15,
+//           ),
+//           Column(
+//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//             children: [
+//               nameSpeciality(size: size),
+//               SizedBox(
+//                 height: size.height * 0.005,
+//               ),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Row(children: [
+//                     Twoicons(
+//                       size: size,
+//                       icon: Icons.star_outline,
+//                       txt: '4.5',
+//                     ),
+//                     SizedBox(
+//                       width: size.width * 0.015,
+//                     ),
+//                     Twoicons(
+//                       size: size,
+//                       icon: Icons.rate_review_outlined,
+//                       txt: '50',
+//                     ),
+//                   ]),
+//                   SizedBox(width: size.width * 0.22),
+//                   Row(
+//                     children: [
+//                       IconButtonCustom(size: size, boolean: false),
+//                     ],
+//                   )
+//                 ],
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+class DoctorCard extends StatelessWidget {
   final Size size;
+  final GetDoctorModel doctor;
+
+  const DoctorCard({
+    Key? key,
+    required this.size,
+    required this.doctor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-          color: AppColors.secondary, borderRadius: BorderRadius.circular(22)),
+        color: AppColors.secondary,
+        borderRadius: BorderRadius.circular(22),
+      ),
       width: size.width * 0.85,
       height: size.height * 0.12,
       child: Row(
@@ -146,34 +242,37 @@ class DoctorCard extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              nameSpeciality(size: size),
-              SizedBox(
-                height: size.height * 0.005,
+              NameSpeciality(
+                size: size,
+                name: doctor.name,
+                lastname: doctor.lastname,
+                specialization: doctor.specialization,
               ),
+              SizedBox(height: size.height * 0.005),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(children: [
-                    Twoicons(
-                      size: size,
-                      icon: Icons.star_outline,
-                      txt: '4.5',
-                    ),
-                    SizedBox(
-                      width: size.width * 0.015,
-                    ),
-                    Twoicons(
-                      size: size,
-                      icon: Icons.rate_review_outlined,
-                      txt: '50',
-                    ),
-                  ]),
+                  Row(
+                    children: [
+                      Twoicons(
+                        size: size,
+                        icon: Icons.star_outline,
+                        txt: doctor.rating.toString(),
+                      ),
+                      SizedBox(width: size.width * 0.015),
+                      Twoicons(
+                        size: size,
+                        icon: Icons.rate_review_outlined,
+                        txt: doctor.reviewsCount.toString(),
+                      ),
+                    ],
+                  ),
                   SizedBox(width: size.width * 0.22),
                   Row(
                     children: [
                       IconButtonCustom(size: size, boolean: false),
                     ],
-                  )
+                  ),
                 ],
               ),
             ],
@@ -183,7 +282,6 @@ class DoctorCard extends StatelessWidget {
     );
   }
 }
-
 class IconButtonCustom extends StatelessWidget {
   const IconButtonCustom({
     Key? key,
@@ -265,13 +363,61 @@ class Twoicons extends StatelessWidget {
   }
 }
 
-class nameSpeciality extends StatelessWidget {
-  const nameSpeciality({
-    super.key,
-    required this.size,
-  });
+// class nameSpeciality extends StatelessWidget {
+//   const nameSpeciality({
+//     super.key,
+//     required this.size,
+//   });
 
+//   final Size size;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         Container(
+//           margin: EdgeInsets.only(top: 5),
+//           width: size.width * 0.6,
+//           height: size.height * 0.06,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             color: AppColors.white,
+//           ),
+//         ),
+//         Positioned(
+//           left: 10,
+//           top: 8.5,
+//           child: Text(
+//             "data",
+//             style: TextStyle(color: AppColors.primary),
+//           ),
+//         ),
+//         Positioned(
+//           left: 10,
+//           bottom: 3,
+//           child: Text(
+//             "data",
+//             style: TextStyle(color: Colors.black),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+class NameSpeciality extends StatelessWidget {
   final Size size;
+  final String name;
+  final String lastname;
+  final String specialization;
+
+  const NameSpeciality({
+    Key? key,
+    required this.size,
+    required this.name,
+    required this.lastname,
+    required this.specialization,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +436,7 @@ class nameSpeciality extends StatelessWidget {
           left: 10,
           top: 8.5,
           child: Text(
-            "data",
+            "$name $lastname",
             style: TextStyle(color: AppColors.primary),
           ),
         ),
@@ -298,7 +444,7 @@ class nameSpeciality extends StatelessWidget {
           left: 10,
           bottom: 3,
           child: Text(
-            "data",
+            specialization,
             style: TextStyle(color: Colors.black),
           ),
         ),
@@ -306,6 +452,7 @@ class nameSpeciality extends StatelessWidget {
     );
   }
 }
+
 
 class searchField extends StatelessWidget {
   const searchField({

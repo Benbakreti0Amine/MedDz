@@ -6,6 +6,8 @@ class EndPoint {
   static String forgetpass = "users/password-reset-request/";
   static String resetpass = "users/password-reset-confirm/";
 
+  static String getDoctors = "http://127.0.0.1:8000/doctor/doctors/";
+
   static String getUser(dynamic id) {
     return "user/get-user/$id";
   }
