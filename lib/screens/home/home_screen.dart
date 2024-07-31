@@ -1,7 +1,10 @@
 import 'package:Meddz/BLOC/bloc/doctor_bloc.dart';
 import 'package:Meddz/BLOC/bloc/doctor_event.dart';
 import 'package:Meddz/BLOC/bloc/doctor_state.dart';
+import 'package:Meddz/BLOC/cubit/user_cubit.dart';
+import 'package:Meddz/BLOC/cubit/user_state.dart';
 import 'package:Meddz/models/doctor/get_doctor_model.dart';
+import 'package:Meddz/screens/home/FavoritesScreen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,196 +21,150 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     super.initState();
-    // Dispatch the LoadDoctors event
     context.read<DoctorBloc>().add(LoadDoctors());
   }
-  
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    bool Togglefavorite(bool isFavorated) {
-      return !isFavorated;
-    }
 
-    return SafeArea(
-        child: Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            width: size.width * 0.85,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 25.0,
-                      backgroundColor: AppColors.primary,
-                    ),
-                    SizedBox(width: size.width * 0.03),
-                    const Column(
+  Widget build(BuildContext context) {
+    return BlocConsumer<UserCubit, UserState>(
+      listener: (context, state) {
+        
+      },
+      builder: (context, state) {
+        if (state is GetprofileLoading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is GetProfilesuccess) {
+          final user = state.user;
+          Size size = MediaQuery.of(context).size;
+
+          return SafeArea(
+            child: Scaffold(
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    width: size.width * 0.85,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "data",
-                          style: TextStyle(color: AppColors.primary),
+                        Row(
+                          children: [
+                            const CircleAvatar(
+                              radius: 25.0,
+                              backgroundColor: AppColors.primary,
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  user.username,
+                                  style: TextStyle(color: AppColors.primary),
+                                ),
+                                Text(user.email),
+                              ],
+                            ),
+                          ],
                         ),
-                        Text("data"),
+                        const Row(
+                          children: [
+                            Iconsbutton(
+                              path: 'assets/images/notifi.svg',
+                            ),
+                            Iconsbutton(
+                              path: 'assets/images/settings.svg',
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-                const Row(
-                  children: [
-                    Iconsbutton(
-                      path: 'assets/images/notifi.svg',
-                    ),
-                    Iconsbutton(
-                      path: 'assets/images/settings.svg',
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            width: size.width * 0.85,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    buttonText(
-                      path: 'assets/images/doc.svg',
-                      txt: 'Doctors',
-                    ),
-                    buttonText(
-                      path: 'assets/images/fav.svg',
-                      txt: 'Favorite',
-                    ),
-                  ],
-                ),
-                searchField(size: size),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: size.height * 0.008,
-          ),
-          Container(
-            width: size.width,
-            height: size.height * 0.26,
-            color: AppColors.secondary,
-          ),
-          SizedBox(
-            height: size.height * 0.008,
-          ),
-          Expanded(
-            child: BlocBuilder<DoctorBloc, DoctorState>(
-              builder: (context, state) {
-                if (state is DoctorLoading) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (state is DoctorLoaded) {
-                  return ListView.builder(
-                    itemBuilder: (context, index) {
-                      final doctor = state.doctors[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 6.0, horizontal: 35),
-                        child: SizedBox(
-                          width: size.width * 0.8,
-                          child: DoctorCard(size: size, doctor: doctor),
+                  ),
+                  Container(
+                    width: size.width * 0.85,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            // buttonText(
+                            //   path: 'assets/images/doc.svg',
+                            //   txt: 'Doctors',
+                            // ),
+                            ButtonText(
+                              path: 'assets/images/fav.svg',
+                              txt: 'Favorite',
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FavoriteDoctorsScreen()),
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                    itemCount: state.doctors.length,
-                  );
-                } else if (state is DoctorError) {
-                  return Center(
-                      child: Text('Failed to load doctors: ${state.message}'));
-                } else {
-                  return Container(); // Initial or other states
-                }
-              },
+                        searchField(size: size),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.008,
+                  ),
+                  Container(
+                    width: size.width,
+                    height: size.height * 0.26,
+                    color: AppColors.secondary,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.008,
+                  ),
+                  Expanded(
+                    child: BlocBuilder<DoctorBloc, DoctorState>(
+                      builder: (context, state) {
+                        if (state is DoctorLoading) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (state is DoctorLoaded) {
+                          return ListView.builder(
+                            itemBuilder: (context, index) {
+                              final doctor = state.doctors[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6.0, horizontal: 35),
+                                child: SizedBox(
+                                  width: size.width * 0.8,
+                                  child: DoctorCard(size: size, doctor: doctor),
+                                ),
+                              );
+                            },
+                            itemCount: state.doctors.length,
+                          );
+                        } else if (state is DoctorError) {
+                          return Center(
+                            child: Text(
+                                'Failed to load doctors: ${state.message}'),
+                          );
+                        } else {
+                          return Container(); // Initial or other states
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    ));
+          );
+        } else {
+          return Center(child: Text('No user data available'));
+        }
+      },
+    );
   }
 }
 
-// class DoctorCard extends StatelessWidget {
-//   const DoctorCard({
-//     super.key,
-//     required this.size,
-//   });
-
-//   final Size size;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-//       decoration: BoxDecoration(
-//           color: AppColors.secondary, borderRadius: BorderRadius.circular(22)),
-//       width: size.width * 0.85,
-//       height: size.height * 0.12,
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Container(
-//             decoration: BoxDecoration(
-//               shape: BoxShape.circle,
-//               color: AppColors.primary,
-//             ),
-//             width: size.width * 0.15,
-//             height: size.height * 0.15,
-//           ),
-//           Column(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: [
-//               nameSpeciality(size: size),
-//               SizedBox(
-//                 height: size.height * 0.005,
-//               ),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Row(children: [
-//                     Twoicons(
-//                       size: size,
-//                       icon: Icons.star_outline,
-//                       txt: '4.5',
-//                     ),
-//                     SizedBox(
-//                       width: size.width * 0.015,
-//                     ),
-//                     Twoicons(
-//                       size: size,
-//                       icon: Icons.rate_review_outlined,
-//                       txt: '50',
-//                     ),
-//                   ]),
-//                   SizedBox(width: size.width * 0.22),
-//                   Row(
-//                     children: [
-//                       IconButtonCustom(size: size, boolean: false),
-//                     ],
-//                   )
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 class DoctorCard extends StatelessWidget {
   final Size size;
   final GetDoctorModel doctor;
@@ -232,13 +189,32 @@ class DoctorCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.primary,
-            ),
-            width: size.width * 0.15,
-            height: size.height * 0.15,
-          ),
+              width: size.width * 0.15,
+              height: size.height * 0.15,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                // color: AppColors.white,
+              ),
+              child: doctor.profilePicture != null
+                  ? ClipOval(
+                      child: Image.network(
+                        doctor.profilePicture!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          print(doctor.profilePicture);
+                          return Icon(
+                            Icons.person_2_outlined,
+                            size: size.width * 0.15,
+                            color: Colors.grey,
+                          );
+                        },
+                      ),
+                    )
+                  : Icon(
+                      Icons.person_2_outlined,
+                      size: size.width * 0.15,
+                      color: Colors.grey,
+                    )),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -254,13 +230,13 @@ class DoctorCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Twoicons(
+                      iconNextToRating(
                         size: size,
                         icon: Icons.star_outline,
                         txt: doctor.rating.toString(),
                       ),
                       SizedBox(width: size.width * 0.015),
-                      Twoicons(
+                      iconNextToRating(
                         size: size,
                         icon: Icons.rate_review_outlined,
                         txt: doctor.reviewsCount.toString(),
@@ -282,6 +258,7 @@ class DoctorCard extends StatelessWidget {
     );
   }
 }
+
 class IconButtonCustom extends StatelessWidget {
   const IconButtonCustom({
     Key? key,
@@ -306,10 +283,7 @@ class IconButtonCustom extends StatelessWidget {
         color: AppColors.primary,
         iconSize: 17.5,
         onPressed: () {
-          // setState(() {
-          //   bool x = Togglefavorite(_plantList[index].isFavorated);
-          //   _plantList[index].isFavorated = x;
-          // });
+          //////////////
         },
       ),
       decoration: BoxDecoration(
@@ -320,8 +294,8 @@ class IconButtonCustom extends StatelessWidget {
   }
 }
 
-class Twoicons extends StatelessWidget {
-  const Twoicons({
+class iconNextToRating extends StatelessWidget {
+  const iconNextToRating({
     super.key,
     required this.size,
     required this.icon,
@@ -453,7 +427,6 @@ class NameSpeciality extends StatelessWidget {
   }
 }
 
-
 class searchField extends StatelessWidget {
   const searchField({
     super.key,
@@ -499,27 +472,31 @@ class searchField extends StatelessWidget {
   }
 }
 
-class buttonText extends StatelessWidget {
-  const buttonText({
-    super.key,
+class ButtonText extends StatelessWidget {
+  const ButtonText({
+    Key? key,
     required this.path,
     required this.txt,
-  });
+    required this.onPressed,
+  }) : super(key: key);
+
   final String path;
   final String txt;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          SvgPicture.asset(path),
-          SizedBox(
-            height: 5,
-          ),
-          Text(txt),
-        ],
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            SvgPicture.asset(path),
+            SizedBox(height: 5),
+            Text(txt),
+          ],
+        ),
       ),
     );
   }

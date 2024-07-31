@@ -27,6 +27,8 @@ class RegisterScreen extends StatelessWidget {
                 width: 138,
                 height: 138,
               ),
+              // Image.network(
+              //     "http://127.0.0.1:8000/media/profile_pics/Mask_group.png"),
               SizedBox(
                 height: size.height * 0.03,
               ),

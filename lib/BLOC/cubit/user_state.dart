@@ -32,7 +32,7 @@ final class SignUpFailure extends UserState {
 
 /////////////////////////////////////////
 /////////////////////////////////////////
-final class ImageUploaded extends UserState {}
+// final class ImageUploaded extends UserState {}
 
 final class GetProfilesuccess extends UserState {
   final GetUserModel user;

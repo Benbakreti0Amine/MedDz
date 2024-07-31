@@ -48,10 +48,10 @@ class UserCubit extends Cubit<UserState> {
 
   UserSignin? user;
   GetUserModel? user1;
-  uploadImage(XFile image) {
-    profilePic = image;
-    emit(ImageUploaded());
-  }
+  // uploadImage(XFile image) {
+  //   profilePic = image;
+  //   emit(ImageUploaded());
+  // }
 
 /////////////////////////////////////////
 /////////////////////////////////////////
@@ -105,6 +105,8 @@ class UserCubit extends Cubit<UserState> {
   signIn() async {
     emit(SignInLoading());
     try {
+      // await CacheHelper().clearAllData();
+
       final response = await api.post(EndPoint.signIn, data: {
         ApiKey.email: signInEmail.text,
         ApiKey.password: signInPassword.text,
@@ -112,7 +114,10 @@ class UserCubit extends Cubit<UserState> {
       user = UserSignin.fromJson(response);
       try {
         final decodedToken = JwtDecoder.decode(user!.token);
+        print(user!.token);
         CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+        print(decodedToken["user_id"]);
+        print(decodedToken);
         CacheHelper().saveData(key: ApiKey.id, value: decodedToken["user_id"]);
         emit(SignInSuccess());
       } catch (e) {
@@ -123,23 +128,21 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  void getUserProfile() {}
   /////////////////////////////////////////
   /////////////////////////////////////////
   void forgetPassword() async {
-  emit(passwordForgetLoading());
-  try {
-    final response = await api.post(EndPoint.forgetpass, data: {
-      ApiKey.email: emailforgetpassword.text,
-    });
+    emit(passwordForgetLoading());
+    try {
+      final response = await api.post(EndPoint.forgetpass, data: {
+        ApiKey.email: emailforgetpassword.text,
+      });
       emit(PasswordForgetSuccess());
-  } on ServerException catch (e) {
-    emit(PasswordForgetFailed(errMessage: e.errModel.errorMessage));
-  } catch (e) {
-    emit(PasswordForgetFailed(errMessage: 'An unknown error occurred.'));
+    } on ServerException catch (e) {
+      emit(PasswordForgetFailed(errMessage: e.errModel.errorMessage));
+    } catch (e) {
+      emit(PasswordForgetFailed(errMessage: 'An unknown error occurred.'));
+    }
   }
-}
-
 
   /////////////////////////////////////////
   /////////////////////////////////////////
@@ -151,9 +154,8 @@ class UserCubit extends Cubit<UserState> {
         ApiKey.newPassword: resetpassword.text,
         ApiKey.otp: otp.text,
       });
-      
-        emit(PasswordResetSuccess());
-      
+
+      emit(PasswordResetSuccess());
     } on ServerException catch (e) {
       emit(PasswordResetFailed(errMessage: e.errModel.errorMessage));
     } catch (e) {

@@ -1,5 +1,7 @@
 import 'package:Meddz/BLOC/bloc/doctor_bloc.dart';
 import 'package:Meddz/screens/auth/register_screen.dart';
+import 'package:Meddz/screens/auth/sign_in_screen.dart';
+import 'package:Meddz/screens/home/FavoritesScreen.dart';
 import 'package:Meddz/screens/rootpage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: RootPage(),
+      home: SignInScreen(),
     );
   }
 }

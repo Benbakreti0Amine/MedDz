@@ -50,6 +50,10 @@ class CacheHelper {
   Future<bool> clearData({required String key}) async {
     return sharedPreferences.clear();
   }
+  //! Clear all data in the local database
+  Future<bool> clearAllData() async {
+    return await sharedPreferences.clear();
+  }
 
 //! this fun to put data in local data base using key
   Future<dynamic> put({

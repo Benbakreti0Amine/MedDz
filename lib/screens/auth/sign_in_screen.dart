@@ -1,3 +1,5 @@
+import 'package:Meddz/screens/home/home_screen.dart';
+import 'package:Meddz/screens/rootpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Meddz/static/colors.dart';
@@ -27,13 +29,13 @@ class SignInScreen extends StatelessWidget {
             );
             context.read<UserCubit>().signInEmail.clear();
             context.read<UserCubit>().signInPassword.clear();
-            // context.read<UserCubit>().getUserData();
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => const ProfileScreen(),
-            //   ),
-            // );
+            context.read<UserCubit>().getUserData();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const RootPage(),
+              ),
+            );
           } else if (state is SignInFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

@@ -1,27 +1,32 @@
 
-
-import '../../core/api/end_ponits.dart';
-
 class GetUserModel {
+  final int id;
   final String username;
-  final String phone;
+  final String password;
   final String email;
-  final String profilePic;
+  final String firstName;
+  final String lastName;
+  final bool isActive;
 
-  GetUserModel(
-      {
-      required this.username,
-      required this.phone,
-      required this.email,
-      required this.profilePic,
-      });
+  GetUserModel({
+    required this.id,
+    required this.username,
+    required this.password,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+    required this.isActive,
+  });
+
   factory GetUserModel.fromJson(Map<String, dynamic> jsonData) {
     return GetUserModel(
-        username: jsonData['user'][ApiKey.name],
-        phone: jsonData['user'][ApiKey.firstname],
-        email: jsonData['user'][ApiKey.email],
-        profilePic: jsonData['user'][ApiKey.pic],
-       );
+      id: jsonData['id'],
+      username: jsonData['username'],
+      password: jsonData['password'],
+      email: jsonData['email'],
+      firstName: jsonData['first_name'],
+      lastName: jsonData['last_name'],
+      isActive: jsonData['is_active'],
+    );
   }
 }
-//

@@ -1,4 +1,5 @@
 
+import 'package:Meddz/models/doctor/get_favorites.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../models/doctor/get_doctor_model.dart';
@@ -25,6 +26,26 @@ class DoctorError extends DoctorState {
   final String message;
 
   DoctorError({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}
+//////////
+
+class FavoritedDoctorsLoaded extends DoctorState {
+  final List<GetDoctorModel> favdoctors;
+
+  FavoritedDoctorsLoaded({required this.favdoctors});
+
+  @override
+  List<Object?> get props => [favdoctors];
+}
+
+class FavoriteDoctorsLoading extends DoctorState{}
+class FavoriteDoctorsError extends DoctorState{
+  final String message;
+
+  FavoriteDoctorsError({required this.message});
 
   @override
   List<Object?> get props => [message];
