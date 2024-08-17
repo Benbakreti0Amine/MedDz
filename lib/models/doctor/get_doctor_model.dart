@@ -4,15 +4,15 @@ class GetDoctorModel {
   final int id;
   final String name;
   final String lastname;
-  final String? profilePicture;
+  final String? profilePicture; // Nullable if the URL might be null
   final String degree;
   final String specialization;
   final String beginOfWork;
   final int experienceYears;
   final double rating;
   final int reviewsCount;
-  final Map<String, String> availableDays;
-  final Map<String, String> availableHours;
+  final Map<String, String>? availableDays; // Nullable
+  final Map<String, String>? availableHours; // Nullable
   final String bio;
   final String highlights;
 
@@ -51,4 +51,24 @@ class GetDoctorModel {
       highlights: jsonData[ApiKey.highlights],
     );
   }
+  
+ Map<String, dynamic> toJson() {
+  return {
+    ApiKey.id: id,
+    ApiKey.name: name,
+    ApiKey.lastname: lastname,
+    ApiKey.profilePicture: profilePicture,  // Ensure this matches the column name
+    ApiKey.degree: degree,
+    ApiKey.specialization: specialization,
+    ApiKey.beginOfWork: beginOfWork,
+    ApiKey.experienceYears: experienceYears,
+    ApiKey.rating: rating,
+    ApiKey.reviewsCount: reviewsCount,
+    ApiKey.availableDays: availableDays,
+    ApiKey.availableHours: availableHours,
+    ApiKey.bio: bio,
+    ApiKey.highlights: highlights,
+  };
+}
+
 }

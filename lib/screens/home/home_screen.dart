@@ -11,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:Meddz/static/colors.dart';
 
-import '../../widgets/page_heading.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,14 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<DoctorBloc>().add(LoadDoctors());
+    // context.read<DoctorBloc>().add(LoadDoctors());
+    context.read<DoctorBloc>().add(LoadDoctorsFromLocal());
   }
 
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is GetprofileLoading) {
           return Center(child: CircularProgressIndicator());
@@ -69,14 +67,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ],
                         ),
-                        const Row(
+                         Row(
                           children: [
-                            Iconsbutton(
-                              path: 'assets/images/notifi.svg',
+                            IconButton(
+                              icon: Icon(Icons.refresh),
+                              onPressed: () {
+                                context
+                                    .read<DoctorBloc>()
+                                    .add(LoadDoctorsFromLocal());
+                              },
                             ),
-                            Iconsbutton(
-                              path: 'assets/images/settings.svg',
-                            ),
+                            // Iconsbutton(
+                            //   path: 'assets/images/notifi.svg',
+                            // ),
+                            // Iconsbutton(
+                            //   path: 'assets/images/settings.svg',
+                            // ),
                           ],
                         ),
                       ],
@@ -89,10 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Row(
                           children: [
-                            // buttonText(
-                            //   path: 'assets/images/doc.svg',
-                            //   txt: 'Doctors',
-                            // ),
+                            ButtonText(
+                              path: 'assets/images/doc.svg',
+                              txt: 'Doctors', onPressed: () {  },
+                            ),
                             ButtonText(
                               path: 'assets/images/fav.svg',
                               txt: 'Favorite',

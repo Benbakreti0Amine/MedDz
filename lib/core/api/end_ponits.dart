@@ -1,18 +1,19 @@
 class EndPoint {
-  static String baseUrl = "http://127.0.0.1:8000/";
-  // static String baseUrl = "http://192.168.1.11:8000/";
+  // static String baseUrl = "http://127.0.0.1:8000/";
+  static String baseUrl = "http://localhost:8000/";
+  // static String baseUrl = "http://192.168.11.197:8000/";
   static String signIn = "users/login/";
   static String signUp = "users/listcreateuser/";
   static String forgetpass = "users/password-reset-request/";
   static String resetpass = "users/password-reset-confirm/";
 
-  static String getDoctors = "http://127.0.0.1:8000/doctor/doctors/";
+  static String getDoctors = "doctor/doctors/";
   static String getFavoriteDoctors =
-      "http://127.0.0.1:8000/doctor/favorite-doctors/";
+      "doctor/favorite-doctors/";
   static String addFavoriteDoctor =
-      "http://127.0.0.1:8000/doctor/favorite-doctors/";
+      "doctor/favorite-doctors/";
   static String removeFavoriteDoctor =
-      "http://127.0.0.1:8000/doctor/favorite-doctors/delete/";
+      "doctor/favorite-doctors/delete/";
 
   static String getUser(dynamic id) {
     return "users/list/$id";

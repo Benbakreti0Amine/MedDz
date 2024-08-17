@@ -1,8 +1,6 @@
+import 'package:Meddz/database/database_helper.dart';
 import 'package:Meddz/BLOC/bloc/doctor_bloc.dart';
-import 'package:Meddz/screens/auth/register_screen.dart';
 import 'package:Meddz/screens/auth/sign_in_screen.dart';
-import 'package:Meddz/screens/home/FavoritesScreen.dart';
-import 'package:Meddz/screens/rootpage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,15 +9,12 @@ import 'core/api/dio_consumer.dart';
 import 'BLOC/cubit/user_cubit.dart';
 import 'static/theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
-  // runApp(
-  //   BlocProvider(
-  //     create: (context) => UserCubit(DioConsumer(dio: Dio())),
-  //     child: const MyApp(),
-  //   ),
-  // );
+  final DatabaseHelper dbHelper = DatabaseHelper();
+  await dbHelper.recreateDatabase();
+
   runApp(
     MultiBlocProvider(
       providers: [

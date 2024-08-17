@@ -1,5 +1,4 @@
 
-import 'package:Meddz/models/doctor/get_favorites.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../models/doctor/get_doctor_model.dart';
